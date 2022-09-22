@@ -1,12 +1,9 @@
-
-
-
 export default function DeleteButton(props) {
   return (
     <div className="">
       <button
         onClick={props.deleteMod}
-        className="text-red-400 items-baseline flex justify-between gap-2 font-['Rubik'] font-medium"
+        className="text-red-400 hover:text-[#FFB8BB] items-baseline flex justify-between gap-2 font-['Rubik'] font-medium"
       >
         <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
           <path
