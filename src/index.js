@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { createContext, useContext, useState } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import data from "./data.json";
+import { Comment } from "./components/Comment.js";
+// import AddReply from './app.js';
+import { comment } from "postcss";
+import AddComments from "./components/AddComments";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+export const commentsContext = createContext();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function AddComment(props) {
+  const [comments, setComments] = useState(data.comments);
+
+  return (
+    <commentsContext.Provider value={[comments, setComments]}>
+      <div className="max-w-3xl m-auto ease-in-out">
+        {comments.map((comment) => {
+          return <Comment key={comment.id} dataCom={comment} />;
+        })}
+
+        <AddComments newComments />
+      </div>
+    </commentsContext.Provider>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<AddComment />);
