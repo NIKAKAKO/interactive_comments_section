@@ -14,18 +14,18 @@ export default function DeleteModal(props) {
 
       dataComs.splice(deletedCommentIndex, 1);
     } else {
-      const deletedCommentIndex = dataComs.forEach((e) => {
-        e.replies.findIndex((element) => {
-          console.log(element.id, props.commentId);
-          return +element.id === +props.commentId;
+      let deletedCommentIndex;
+      dataComs.forEach((e, index) => {
+        let filteredReplies = e.replies.filter((element) => {
+          return element.id !== props.commentId;
         });
-        return;
+
+        dataComs[index].replies = filteredReplies;
       });
       console.log(deletedCommentIndex);
-      //   dataComs.splice(deletedCommentIndex, 1);
     }
 
-    // setComments(e);
+    setComments(dataComs);
     props.closeDeleteModal();
   };
 
