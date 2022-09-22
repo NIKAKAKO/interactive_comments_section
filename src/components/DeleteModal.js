@@ -5,14 +5,14 @@ export default function DeleteModal(props) {
   const [comments, setComments] = useContext(commentsContext);
 
   const delComment = () => {
-    const dataComs = [...comments];
+    let dataComs = [...comments];
 
     if (props.mainCom) {
-      const deletedCommentIndex = dataComs.findIndex((e) => {
-        return e.id === props.commentId;
+      let filteredComments = dataComs.filter((e) => {
+        return e.id !== props.commentId;
       });
 
-      dataComs.splice(deletedCommentIndex, 1);
+      dataComs = [...filteredComments];
     } else {
       let deletedCommentIndex;
       dataComs.forEach((e, index) => {
@@ -22,7 +22,6 @@ export default function DeleteModal(props) {
 
         dataComs[index].replies = filteredReplies;
       });
-      console.log(deletedCommentIndex);
     }
 
     setComments(dataComs);
