@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import data from "../data.json";
 import Reply from "./Reply";
 import AddComment from "./AddComments";
@@ -7,8 +7,12 @@ import { Score } from "./Score";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import DeleteModal from "./DeleteModal";
+import { commentsContext } from "../index";
+import Update from "./Update";
 
 export function Comment(props) {
+  const [comments, setComments] = useContext(commentsContext);
+
   const [check, setCheck] = useState(false);
   const showReply = () => {
     setCheck(!check);
@@ -20,6 +24,11 @@ export function Comment(props) {
 
   const closeDeleteModal = () => {
     setDel(false);
+  };
+
+  const [update, setUpdate] = useState(false);
+  const updateHandler = () => {
+    setUpdate(true);
   };
 
   return (
@@ -48,7 +57,11 @@ export function Comment(props) {
               {data.currentUser.username == props.dataCom.user.username ? (
                 <div className="flex justify-between gap-4">
                   <DeleteButton deleteMod={openDeleteModal} />
-                  <EditButton />
+                  <EditButton
+                    editCom={updateHandler}
+                    mainCom={true}
+                    commentId={props.id}
+                  />
                 </div>
               ) : (
                 <ReplyButton show={showReply} />
@@ -58,6 +71,15 @@ export function Comment(props) {
           <span className="break-words w-full max-w-[618px] text-[#67727E] block mt-4 mb-4 mr-0 text-left text-base order-2	">
             {props.dataCom.content}
           </span>
+          {data.currentUser.username === props.dataCom.user.username
+            ? update && (
+                <Update
+                  setUpdate={setUpdate}
+                  commentId={props.dataCom.id}
+                  mainCom={true}
+                />
+              )
+            : ""}
         </div>
         <Score comments={props.dataCom} />
       </div>
