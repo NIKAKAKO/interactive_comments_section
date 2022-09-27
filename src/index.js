@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import data from "./data.json";
 import { Comment } from "./components/Comment.js";
 // import AddReply from './app.js';
-import { comment } from "postcss";
 import AddComments from "./components/AddComments";
 
 export const commentsContext = createContext();

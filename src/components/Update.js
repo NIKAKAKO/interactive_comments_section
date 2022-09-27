@@ -11,21 +11,20 @@ const Update = (props) => {
 
     if (props.mainCom) {
       const newDataComs = dataComs.map((edit) => {
-        console.log(edit.content, edit);
         if (edit.id === props.commentId) {
-          console.log(edit.content, edit);
-          edit.content = "some text";
-          props.changedText();
+          edit.content = props.changedText;
+          console.log(props.changedText, );
         }
         return edit;
       });
       setComments(newDataComs);
     } else {
       dataComs.forEach((e, index) => {
-        let filteredReplies = e.replies.map((e) => {
-          if (e.id == props.commentId) {
-            e.content = props.changedText();
+        e.replies.map((e) => {
+          if (e.id === props.commentId) {
+            e.content = props.changedText;
           }
+          return e;
         });
       });
     }

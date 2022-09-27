@@ -1,12 +1,11 @@
 import data from "../data.json";
 import { ReplyButton } from "./ReplyButton";
 import { Score } from "./Score";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import AddComment from "./AddComments";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import DeleteModal from "./DeleteModal";
-import { commentsContext } from "../index";
 import Update from "./Update";
 
 export default function Reply(props) {
@@ -29,13 +28,10 @@ export default function Reply(props) {
     setUpdate(true);
   };
 
-  // const [change, setChange] = useState("");
+  const [change, setChange] = useState(props.reply.content);
 
   const changeHandler = (e) => {
-    const changedValue = e.target.value;
-    console.log(changedValue);
-    // setChange(changedValue);
-    // console.log(change);
+    setChange(e.target.value);
   };
 
   return (
@@ -45,6 +41,7 @@ export default function Reply(props) {
           <div className="flex items-center justify-between">
             <div className="flex gap-4 order-1">
               <img
+                alt="profile"
                 className=" w-8"
                 src={process.env.PUBLIC_URL + props.reply.user.image.png}
               />
@@ -77,7 +74,7 @@ export default function Reply(props) {
           </div>
           {update ? (
             <textarea
-              // value={change}
+              value={change}
               onChange={changeHandler}
               className="break-words w-full max-w-[618px] text-[#67727E] block mt-4 mb-4 mr-0 text-left text-base order-2	"
             >
@@ -92,7 +89,7 @@ export default function Reply(props) {
           {data.currentUser.username === props.reply.user.username
             ? update && (
                 <Update
-                  changedText={changeHandler}
+                  changedText={change}
                   setUpdate={setUpdate}
                   commentId={props.reply.id}
                   mainCom={false}
@@ -101,7 +98,10 @@ export default function Reply(props) {
             : ""}
         </div>
 
-        <Score comments={props.reply} />
+        <Score
+          comments={props.reply}
+          current={data.currentUser.username === props.reply.user.username}
+        />
       </div>
 
       {check && (

@@ -1,4 +1,4 @@
-import React, { useContext, Component } from "react";
+import React, { useContext} from "react";
 import { commentsContext } from "../index";
 
 export default function DeleteModal(props) {
@@ -14,7 +14,7 @@ export default function DeleteModal(props) {
 
       dataComs = [...filteredComments];
     } else {
-      let deletedCommentIndex;
+      
       dataComs.forEach((e, index) => {
         let filteredReplies = e.replies.filter((element) => {
           return element.id !== props.commentId;

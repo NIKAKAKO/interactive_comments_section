@@ -1,4 +1,4 @@
-import PreviousMap from "postcss/lib/previous-map";
+
 import { useContext, useState } from "react";
 import data from "../data.json";
 import { commentsContext } from "../index";
@@ -28,8 +28,8 @@ const AddComments = ({
       replyingTo: replyingToUser,
       user: {
         image: {
-          png: "./images/avatars/image-juliusomo.png",
-          webp: "./images/avatars/image-juliusomo.webp",
+          png: "/images/avatars/image-juliusomo.png",
+          webp: "/images/avatars/image-juliusomo.webp",
         },
         username: "juliusomo",
       },
@@ -55,6 +55,8 @@ const AddComments = ({
     setComment("");
   };
 
+  
+
   return (
     <div className="w-full lg:w-[95%]">
       <div className="bg-white p-4 sm:p-6 flex flex-wrap md:flex-nowrap	rounded-lg max-w-3xl sm:justify-center">
@@ -69,6 +71,7 @@ const AddComments = ({
           }}
         />
         <img
+        alt="current User"
           className="h-8 sm:order-1 sm:h-10 sm:mr-4"
           src={process.env.PUBLIC_URL + data.currentUser.image.png}
         />
